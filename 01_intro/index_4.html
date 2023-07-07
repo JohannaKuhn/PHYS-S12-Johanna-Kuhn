@@ -23,18 +23,50 @@
 <xmp style="display:none;">
 <br> 
 
-## 1: Microcontroller Programming
+## 4: Microcontroller Programming
 
 For our this assignment I chose to improve my kenetic sculpture from the last assignment by programming my board to turn on and off a LED light and the motor with a button. This is something i've never done before so with the help of Google, Youtube, and people in our class I was able to do it.
 
 ## Here is the schematic drawing:
 
 ## Here is how it looks:
-<img src="microcon board.jpg" width="920" height="550">
+<img src="microcon board.jpg" width="850" height="550">
 
-## Here is the code:
+## Here is the arduino code:
+<pre style="border:2px solid #BCBEC0; padding 10px; font: 14px Moneco; width:70%; background: #f7f7f9;border-radius: 25px;"><code>
+## Here is the final product:#define LED_PIN 8
+#define BUTTON_PIN 7
+const int A1A = 3;  // define pin 3 for A-1A 
+const int A1B = 4;  // define pin 4 for A-1B 
 
-## Here is the final product:
+void setup() {
+  pinMode(A1A, OUTPUT);     // specify these pins as outputs
+  pinMode(A1B, OUTPUT);
+  digitalWrite(A1A, LOW);   // start with the motors off 
+  digitalWrite(A1B, LOW);
+   pinMode(LED_PIN, OUTPUT);
+  pinMode(BUTTON_PIN, INPUT);
+}
+
+ 
+void loop() {
+  if (digitalRead(BUTTON_PIN) == HIGH) {
+     digitalWrite(LED_PIN, HIGH);
+      // start the motor 
+  digitalWrite(A1A, HIGH);   
+  digitalWrite(A1B, LOW);
+  delay(1);              // allow the motor to run for 3 seconds
+
+
+     }
+else {   // stop the motor
+  digitalWrite(A1A, LOW);   // setting both pins LOW stops the motor 
+  digitalWrite(A1B, LOW);   // redundant, but doesn't hurt 
+   digitalWrite(LED_PIN, LOW);
+  delay(1);              // keep the motor off for 4 seconds
+
+}
+} </code>
 
 <video src="microcon boat.mp4" class="object-fit-fill" autoplay width="820" height="450"></video>
 
