@@ -1,13 +1,13 @@
 body {
-background-color: #7895CB;
+background-color: #4A55A2;
 font: 20px Montserrat, sans-serif;
 line-height: 1.8;
-color: rgb(21, 45, 82);
+color: #7895CB (21, 45, 82);
 
 header {
   background-color: #4A55A2;
   }
-  
+
 p {font-size: 16px;}
 .margin {margin-bottom: 15px;}
 
