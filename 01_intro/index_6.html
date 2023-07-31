@@ -61,96 +61,14 @@ First I started by making two circles in Fusion360. their diameter is 110 mm and
 <center><img src="capacity graph.PNG" width="505" ></center>
 
 
-# Here is the Arduino code for the phototransister:
+# Here is the Arduino codes:
 <p>
   Here is a <a href="phototransister link.html">LINK</a> to the phototransister code.
 </p>
 
-<pre style="border:2px solid #BCBEC0; padding 10px; font: 14px Moneco; width:70%; background: #f7f7f9;border-radius: 25px;"><code>
-  /*
-  AnalogReadSerial
-
-  Reads an analog input on pin 0, prints the result to the Serial Monitor.
-  Graphical representation is available using Serial Plotter (Tools > Serial Plotter menu).
-  Attach the center pin of a potentiometer to pin A0, and the outside pins to +5V and ground.
-
-  This example code is in the public domain.
-
-  https://www.arduino.cc/en/Tutorial/BuiltInExamples/AnalogReadSerial
-*/
-
-// the setup routine runs once when you press reset:
-void setup() {
-  // initialize serial communication at 9600 bits per second:
-  Serial.begin(9600);
-}
-
-// the loop routine runs over and over again forever:
-void loop() {
-  // read the input on analog pin 0:
-  int sensorValue = analogRead(A0);
-  // print out the value you read:
-  Serial.println(sensorValue);
-  delay(1);  // delay in between reads for stability
-} 
-}</code>
-
-
-# Here is the Arduino code for the capacitive sensor:
-
-<pre style="border:2px solid #BCBEC0; padding 10px; font: 14px Moneco; width:70%; background: #f7f7f9;border-radius: 25px;"><code>
-  #include <Servo.h>
-
-    Servo myservo;  // create servo object to control a servo
-    
-    int pos = 0;    // variable to store the servo position
-    long result;   //variable for the result of the tx_rx measurement.
-    int analog_pin = A3;
-    int tx_pin = 4;
-    
-    void setup() {
-        pinMode(tx_pin, OUTPUT);      //Pin 4 provides the voltage step
-        Serial.begin(9600);
-       myservo.attach(9);  // attaches the servo on pin 9 to the servo object
-    }
-    
-    void loop() {
-        result = tx_rx();
-        Serial.println(result);
-      for (pos = 0; pos <= 180; pos += 1) { // goes from 0 degrees to 180 degrees
-        // in steps of 1 degree
-        myservo.write(pos);              // tell servo to go to position in variable 'pos'
-        delay(30);                       // waits 15ms for the servo to reach the position
-      }
-      myservo.write(0);                    // send the servo back to 0
-      delay(1000);                        // give it enough time to make it there
-    }
-    
-    
-    long tx_rx(){         // Function to execute rx_tx algorithm and return a value
-                          // that depends on coupling of two electrodes.
-                          // Value returned is a long integer.
-      int read_high;
-      int read_low;
-      int diff;
-      long int sum;
-      int N_samples = 100;    // Number of samples to take.  Larger number slows it down, but reduces scatter.
-    
-      sum = 0;
-    
-      for (int i = 0; i < N_samples; i++){
-       digitalWrite(tx_pin,HIGH);              // Step the voltage high on conductor 1.
-       read_high = analogRead(analog_pin);     // Measure response of conductor 2.
-       delayMicroseconds(100);                 // Delay to reach steady state.
-       digitalWrite(tx_pin,LOW);               // Step the voltage to zero on conductor 1.
-       read_low = analogRead(analog_pin);      // Measure response of conductor 2.
-       diff = read_high - read_low;            // desired answer is the difference between high and low.
-       sum += diff;                            // Sums up N_samples of these measurements.
-     }
-      return sum;
-    }        
-  }</code>
-
+<p>
+  Here is a <a href="capacitive sensor.html">LINK</a> to the Capacitive Sensor code.
+</p>
 
 </xmp>
 </body>
