@@ -23,28 +23,35 @@
 <xmp style="display:none;">
 <br> 
 
-## 4: Microcontroller Programming
+## Phototransister Code:
 
-For our this assignment I chose to improve my kenetic sculpture from the last assignment by programming my board to turn on and off a LED light and the motor with a button. This is something i've never done before so with the help of Google, Youtube, and people in our class I was able to do it.
+int ThermistorPin = A0;
+int Vo;
+float R1 = 10000;
+float R2, T;
+float A = 3.354e-03;
+float B = 2.5698e-4;
 
-## Here is the schematic drawing:
-<center><img src="4 schematic.jpg" width="750" ></center>
+void setup() {
+  Serial.begin(9600);           
+}
 
-## Here is how it looks:
-<center><img src="microcon board.jpg" width="850" ></center>
+void loop() {
+
+  Vo = analogRead(ThermistorPin);
+  R2 = R1 * 1/(1023.0 / (float)Vo - 1.0);  //Calculate resistance of thermistor from voltage divider math.
+  T = (1.0 / (A + B*log(R2/R1) ));  // Calculate temperature using datasheet formula.
+  T = T - 273.15;                   //Convert from Kelvin to Celcius.
 
 
-## Here is the final product:
-<center><video width="620"  controls>
-  <source src="micron boat.mp4" type="video/mp4">
- 
-</video></center>
+  Serial.print("Temperature: "); 
+  Serial.print(T);
+  Serial.println("C"); 
 
-<p>
-Here is the microcontroller <a href="microcon code.html">CODE</a> .
-</p>
+  delay(500);
+}
 
-___________________________________________________________________________________________________________
+
 
 </xmp>
 </body>
