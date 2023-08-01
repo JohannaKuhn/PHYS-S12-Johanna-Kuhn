@@ -23,33 +23,38 @@
 <xmp style="display:none;">
 <br> 
 
-## Phototransister Code:
+## Microcontroller Code:
 
-int ThermistorPin = A0;
-int Vo;
-float R1 = 10000;
-float R2, T;
-float A = 3.354e-03;
-float B = 2.5698e-4;
-
+define LED_PIN 8
+define BUTTON_PIN 7
+const int A1A = 3;  // define pin 3 for A-1A 
+const int A1B = 4;  // define pin 4 for A-1B 
 void setup() {
-  Serial.begin(9600);           
+  pinMode(A1A, OUTPUT);     // specify these pins as outputs
+  pinMode(A1B, OUTPUT);
+  digitalWrite(A1A, LOW);   // start with the motors off 
+  digitalWrite(A1B, LOW);
+   pinMode(LED_PIN, OUTPUT);
+  pinMode(BUTTON_PIN, INPUT);
 }
-
 void loop() {
+  if (digitalRead(BUTTON_PIN) == HIGH) {
+     digitalWrite(LED_PIN, HIGH);
+      // start the motor 
+  digitalWrite(A1A, HIGH);
+  digitalWrite(A1B, LOW);
+  delay(1);              // allow the motor to run for 3 seconds
+ }
 
-  Vo = analogRead(ThermistorPin);
-  R2 = R1 * 1/(1023.0 / (float)Vo - 1.0);  //Calculate resistance of thermistor from voltage divider math.
-  T = (1.0 / (A + B*log(R2/R1) ));  // Calculate temperature using datasheet formula.
-  T = T - 273.15;                   //Convert from Kelvin to Celcius.
-
-
-  Serial.print("Temperature: "); 
-  Serial.print(T);
-  Serial.println("C"); 
-
-  delay(500);
+else {   // stop the motor
+  digitalWrite(A1A, LOW);   // setting both pins LOW stops the motor 
+  digitalWrite(A1B, LOW);   // redundant, but doesn't hurt 
+   digitalWrite(LED_PIN, LOW);
+  delay(1);              // keep the motor off for 4 seconds
 }
+} 
+
+
 
 
 
